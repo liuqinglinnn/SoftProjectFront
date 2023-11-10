@@ -14,7 +14,8 @@ Page({
     yanchireason: "",
     isnewid: 0,
     id: "",
-    yanchidetail:{}
+    yanchidetail:{},
+    baseurl:"http://81.68.194.42:9090"
   },
   zhaopiantanchuang(e) {
     wx.showModal({
@@ -61,7 +62,7 @@ Page({
         let token = res.data
         that.setData({ 'token': res.data })
         wx.request({
-          url: 'https://xcx.fjdayixin.cn:51608/api/1/list/urls',
+          url: that.baseurl+'/api/1/list/urls',
           data: {
             "type": 1,
             "taskId": itemnow.id
@@ -81,7 +82,7 @@ Page({
         });
 
         wx.request({
-          url: 'https://xcx.fjdayixin.cn:51608/api/1/list/add/record/' + itemnow.id,
+          url: that.baseurl+'/api/1/list/add/record/' + itemnow.id,
           header: {
             'content-type': 'application/json',
             'token': token
@@ -145,7 +146,7 @@ Page({
   remarkconfirm() {
     let that = this
     wx.request({
-      url: 'https://xcx.fjdayixin.cn:51608/api/1/change/text',
+      url: that.baseurl+'/api/1/change/text',
       data: {
         "taskId": that.data.car.id,
         'name': that.data.remarkvalue
@@ -180,7 +181,7 @@ Page({
     //有审核
     if (that.data.car.isRemarkFifth == 3) {
       wx.request({
-        url: 'https://xcx.fjdayixin.cn:51608/api/1/add/time',
+        url: that.baseurl+'/api/1/add/time',
         data: {
           taskId: that.data.car.id,
           day: that.data.timelist[that.data.timelistindex],
@@ -217,7 +218,7 @@ Page({
     //直接改
     else {
       wx.request({
-        url: 'https://xcx.fjdayixin.cn:51608/api/1/add/time',
+        url: that.baseurl+'/api/1/add/time',
         data: {
           taskId: that.data.car.id,
           day: that.data.timelist[that.data.timelistindex],
@@ -265,7 +266,7 @@ Page({
   bohuitongguo(e) {
     let that = this
     wx.request({
-      url: 'https://xcx.fjdayixin.cn:51608/api/1/check/reject',
+      url: that.baseurl+'/api/1/check/reject',
       data: {
         "taskId": that.data.car.id,
         "type": 4,

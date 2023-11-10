@@ -16,6 +16,7 @@ Page({
     groupnow: "",//当前内容
     orderByPrice: 0,
     orderByPriceType: 0,
+    baseurl:"http://81.68.194.42:9090"
   },
   onLoad() {
     let that = this
@@ -31,7 +32,7 @@ Page({
         console.log(res)
       }
     })
-    
+
     wx.getSystemInfo({
       success: (res) => {
         this.setData({
@@ -53,7 +54,7 @@ Page({
             that.setData({ 'id': res.data })
             let id = res.data
             wx.request({
-              url: 'https://xcx.fjdayixin.cn:51608/api/1/list/page',
+              url: that.baseurl+'/api/1/list/page',
               data: {
                 "size": 10, //分页参数
                 "page": 1, //分页参数
@@ -95,7 +96,7 @@ Page({
     var cur = event.currentTarget.dataset.current;
     //每个tab选项宽度占1/5
     var singleNavWidth = this.data.windowWidth / 5;
-    //tab选项居中                            
+    //tab选项居中
     this.setData({
       navScrollLeft: (cur - 2) * singleNavWidth
     })
@@ -105,7 +106,7 @@ Page({
       this.setData({ currentTab: cur, page: 1 })
       let that = this
       wx.request({
-        url: 'https://xcx.fjdayixin.cn:51608/api/1/list/page',
+        url: that.baseurl+'/api/1/list/page',
         data: {
           "size": 10, //分页参数
           "page": 1, //分页参数
@@ -176,7 +177,7 @@ Page({
     }
     console.log(groupnow);
     wx.request({
-      url: 'https://xcx.fjdayixin.cn:51608/api/1/list/page',
+      url: that.baseurl+'/api/1/list/page',
       data: {
         "size": 10, //分页参数
         "page": 1, //分页参数
@@ -210,7 +211,7 @@ Page({
       groupnow = xiangmulist[that.data.xiangmuindex]
     }
     wx.request({
-      url: 'https://xcx.fjdayixin.cn:51608/api/1/list/page',
+      url: that.baseurl+'/api/1/list/page',
       data: {
         "size": 10, //分页参数
         "page": 1, //分页参数
@@ -246,7 +247,7 @@ Page({
     }
     console.log(page + 1, that.data.id, that.data.currentTab + 1, that.data.inputvalue, groupnow);
     wx.request({
-      url: 'https://xcx.fjdayixin.cn:51608/api/1/list/page',
+      url: that.baseurl+'/api/1/list/page',
       data: {
         "size": 10, //分页参数
         "page": page + 1, //分页参数
@@ -297,7 +298,7 @@ Page({
             that.setData({ 'id': res.data })
             let id = res.data
             wx.request({
-              url: 'https://xcx.fjdayixin.cn:51608/api/1/list/page',
+              url: that.baseurl+'/api/1/list/page',
               data: {
                 "size": 10, //分页参数
                 "page": 1, //分页参数
@@ -354,7 +355,7 @@ Page({
       groupnow = xiangmulist[that.data.xiangmuindex]
     }
     wx.request({
-      url: 'https://xcx.fjdayixin.cn:51608/api/1/list/page',
+      url: that.baseurl+'/api/1/list/page',
       data: {
         "size": 10, //分页参数
         "page": 1, //分页参数
@@ -389,7 +390,7 @@ Page({
       groupnow = xiangmulist[that.data.xiangmuindex]
     }
     wx.request({
-      url: 'https://xcx.fjdayixin.cn:51608/api/1/list/page',
+      url: that.baseurl+'/api/1/list/page',
       data: {
         "size": 10, //分页参数
         "page": 1, //分页参数

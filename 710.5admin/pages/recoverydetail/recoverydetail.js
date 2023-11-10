@@ -5,6 +5,7 @@ Page({
     token: "",
     remarkpop: false,
     remarkvalue: "",
+    baseurl:"http://81.68.194.42:9090"
   },
   onLoad: function (options) {
     let cid = options.cid
@@ -27,7 +28,7 @@ Page({
       success: (res) => {
         that.setData({ 'token': res.data, remark: text })
         wx.request({
-          url: 'https://xcx.fjdayixin.cn:51608/api/1/get/collection/' + cid,
+          url: that.baseurl+'/api/1/get/collection/' + cid,
           header: {
             'content-type': 'application/json',
             'token': res.data

@@ -20,7 +20,8 @@ Page({
     chuzhiarr: [],//处置记录
     formdatapop: false,
     formdata: "",
-    classify: 0
+    classify: 0,
+    baseurl:"http://81.68.194.42:9090"
   },
   onLoad: function (options) {
     let itemnow = JSON.parse(options.itemnow)
@@ -51,7 +52,7 @@ Page({
             that.setData({ 'id': res.data })
             let id = res.data
             wx.request({
-              url: 'https://xcx.fjdayixin.cn:51608/api/1/get/record/2/' + itemnow.id,
+              url: that.baseurl+'/api/1/get/record/2/' + itemnow.id,
               header: {
                 'content-type': 'application/json',
                 'token': token
@@ -66,7 +67,7 @@ Page({
               complete: () => { }
             });
             wx.request({
-              url: 'https://xcx.fjdayixin.cn:51608/api/1/get/more/phone/' + itemnow.id,
+              url: that.baseurl+'/api/1/get/more/phone/' + itemnow.id,
               header: {
                 'content-type': 'application/json',
                 'token': token
@@ -81,7 +82,7 @@ Page({
               complete: () => { }
             });
             wx.request({
-              url: 'https://xcx.fjdayixin.cn:51608/api/1/get/groups/3',
+              url: that.baseurl+'/api/1/get/groups/3',
               header: {
                 'content-type': 'application/json',
                 'token': token
@@ -97,7 +98,7 @@ Page({
             });
             if (itemnow.isRemarkFour == 4) {
               wx.request({
-                url: 'https://xcx.fjdayixin.cn:51608/api/1/get/record',
+                url: that.baseurl+'/api/1/get/record',
                 data: {
                   type: 1,
                   taskId: itemnow.id
@@ -119,7 +120,7 @@ Page({
             }
             else if (itemnow.isRemarkThree == 4) {
               wx.request({
-                url: 'https://xcx.fjdayixin.cn:51608/api/1/get/record',
+                url: that.baseurl+'/api/1/get/record',
                 data: {
                   type: 1,
                   taskId: itemnow.id
@@ -142,7 +143,7 @@ Page({
 
 
             wx.request({
-              url: 'https://xcx.fjdayixin.cn:51608/api/1/get/manage/detail/' + itemnow.id,
+              url: that.baseurl+'/api/1/get/manage/detail/' + itemnow.id,
               header: {
                 'content-type': 'application/json',
                 'token': token
@@ -156,7 +157,7 @@ Page({
                 for (let i = 0; i < chuzhiarr.length; i++) {
                   if (chuzhiarr[i].type != 5) {
                     wx.request({
-                      url: 'https://xcx.fjdayixin.cn:51608/api/1/list/urls',
+                      url: that.baseurl+'/api/1/list/urls',
                       data: {
                         "type": 3,
                         "taskId": itemnow.id
@@ -177,7 +178,7 @@ Page({
                   }
                   if (chuzhiarr[i].type == 5) {
                     wx.request({
-                      url: 'https://xcx.fjdayixin.cn:51608/api/1/list/urls/1',
+                      url: that.baseurl+'/api/1/list/urls/1',
                       data: {
                         "type": 4,
                         "taskId": itemnow.id,
@@ -257,7 +258,7 @@ Page({
   cuijiconfirm(e) {
     let that = this
     wx.request({
-      url: 'https://xcx.fjdayixin.cn:51608/api/1/create/record/2',
+      url: that.baseurl+'/api/1/create/record/2',
       data: {
         "taskId": that.data.car.id,
         "userId": that.data.id,
@@ -278,7 +279,7 @@ Page({
           success: function (res) {
             that.setData({ addcuijipop: !that.data.addcuijipop })
             wx.request({
-              url: 'https://xcx.fjdayixin.cn:51608/api/1/get/record/2/' + that.data.car.id,
+              url: that.baseurl+'/api/1/get/record/2/' + that.data.car.id,
               header: {
                 'content-type': 'application/json',
                 'token': that.data.token
@@ -306,7 +307,7 @@ Page({
   cuishouwancheng(e) {
     let that = this
     wx.request({
-      url: 'https://xcx.fjdayixin.cn:51608/api/1/get/car/' + that.data.car.id,
+      url: that.baseurl+'/api/1/get/car/' + that.data.car.id,
 
       header: {
         'content-type': 'application/json',
@@ -347,7 +348,7 @@ Page({
   addphone(e) {
     let that = this
     wx.request({
-      url: 'https://xcx.fjdayixin.cn:51608/api/1/add/phone',
+      url: that.baseurl+'/api/1/add/phone',
       data: {
         "taskId": that.data.car.id,
         "number": that.data.newphone,
@@ -366,7 +367,7 @@ Page({
           content: '',
           success: function (res) {
             wx.request({
-              url: 'https://xcx.fjdayixin.cn:51608/api/1/get/more/phone/' + that.data.car.id,
+              url: that.baseurl+'/api/1/get/more/phone/' + that.data.car.id,
               header: {
                 'content-type': 'application/json',
                 'token': that.data.token
@@ -391,7 +392,7 @@ Page({
     console.log(e);
     let phoneid = e.currentTarget.dataset.id
     wx.request({
-      url: 'https://xcx.fjdayixin.cn:51608/api/1/remove/phone/' + phoneid,
+      url: that.baseurl+'/api/1/remove/phone/' + phoneid,
       header: {
         'content-type': 'application/json',
         'token': that.data.token
@@ -406,7 +407,7 @@ Page({
           content: '',
           success: function (res) {
             wx.request({
-              url: 'https://xcx.fjdayixin.cn:51608/api/1/get/more/phone/' + that.data.car.id,
+              url: that.baseurl+'/api/1/get/more/phone/' + that.data.car.id,
               header: {
                 'content-type': 'application/json',
                 'token': that.data.token
@@ -446,7 +447,7 @@ Page({
   remarkconfirm() {
     let that = this
     wx.request({
-      url: 'https://xcx.fjdayixin.cn:51608/api/1/change/text',
+      url: that.baseurl+'/api/1/change/text',
       data: {
         "taskId": that.data.car.id,
         'name': that.data.remarkvalue
@@ -485,7 +486,7 @@ Page({
       success: function (res) {
         if (res.confirm) {
           wx.request({
-            url: 'https://xcx.fjdayixin.cn:51608/api/1/change/group',
+            url: that.baseurl+'/api/1/change/group',
             data: {
               "taskId": that.data.car.id,
               'name': ''
@@ -528,7 +529,7 @@ Page({
   grouplistchangeconfirm(e) {
     let that = this
     wx.request({
-      url: 'https://xcx.fjdayixin.cn:51608/api/1/change/group',
+      url: that.baseurl+'/api/1/change/group',
       data: {
         "taskId": that.data.car.id,
         'name': that.data.grouplist[that.data.grouplistindex].name
@@ -564,7 +565,7 @@ Page({
   shownewcuiji() {
     let that = this
     wx.request({
-      url: 'https://xcx.fjdayixin.cn:51608/api/1/get/record/2/' + that.data.car.id,
+      url: that.baseurl+'/api/1/get/record/2/' + that.data.car.id,
       header: {
         'content-type': 'application/json',
         'token': that.data.token
@@ -607,7 +608,7 @@ Page({
     let formdata = that.data.formdata
     if (calssify == 1) {
       wx.request({
-        url: 'https://xcx.fjdayixin.cn:51608/api/1/change/msg',
+        url: that.baseurl+'/api/1/change/msg',
         data: {
           "carOwnerPhone": formdata,
           "carAttribute": carAttribute,
@@ -642,7 +643,7 @@ Page({
     }
     else if (calssify == 2) {
       wx.request({
-        url: 'https://xcx.fjdayixin.cn:51608/api/1/change/msg',
+        url: that.baseurl+'/api/1/change/msg',
         data: {
           "carOwnerPhone": carOwnerPhone,
           "carAttribute": formdata,
@@ -677,7 +678,7 @@ Page({
     }
     else if (calssify == 3) {
       wx.request({
-        url: 'https://xcx.fjdayixin.cn:51608/api/1/change/msg',
+        url: that.baseurl+'/api/1/change/msg',
         data: {
           "carOwnerPhone": carOwnerPhone,
           "carAttribute": carAttribute,
@@ -712,7 +713,7 @@ Page({
     }
     else if (calssify == 4) {
       wx.request({
-        url: 'https://xcx.fjdayixin.cn:51608/api/1/change/msg',
+        url: that.baseurl+'/api/1/change/msg',
         data: {
           "carOwnerPhone": carOwnerPhone,
           "carAttribute": carAttribute,
@@ -749,7 +750,7 @@ Page({
       formdata = Number(formdata)
       console.log(formdata);
       wx.request({
-        url: 'https://xcx.fjdayixin.cn:51608/api/1/change/msg',
+        url: that.baseurl+'/api/1/change/msg',
         data: {
           "carOwnerPhone": carOwnerPhone,
           "carAttribute": carAttribute,

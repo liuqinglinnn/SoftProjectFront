@@ -4,6 +4,7 @@ Page({
     "password": "",
     "id": "",
     "open": false,//默认不显示密码
+    baseurl:"http://81.68.194.42:9090"
   },
   onLoad(options) {
     let that = this
@@ -28,7 +29,7 @@ Page({
           success: (res) => {
             let token = res.data
             wx.request({
-              url: 'https://xcx.fjdayixin.cn:51608/api/1/get/user/' + id,
+              url: that.baseurl+'/api/1/get/user/' + id,
               header: {
                 'content-type': 'application/json',
                 'token': token
@@ -81,7 +82,7 @@ Page({
   slogin(e) {
     let that = this
     wx.request({
-      url: 'https://xcx.fjdayixin.cn:51608/user/login',
+      url: that.baseurl+'/user/login',
       data: {
         "username": that.data.username,
         "password": that.data.password

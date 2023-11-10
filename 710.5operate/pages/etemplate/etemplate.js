@@ -11,6 +11,7 @@ Page({
     remarkpop: false,
     remarkvalue: "",
     statustotal: null,
+    baseurl:"http://81.68.194.42:9090"
   },
   onLoad: function (options) {
     wx.setVisualEffectOnCapture({

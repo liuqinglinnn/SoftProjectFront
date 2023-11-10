@@ -10,6 +10,7 @@ Page({
     fillingpop: false,
     fillingreason: "",
     nickname: "",
+    baseurl:"http://81.68.194.42:9090"
   },
   zhaopiantanchuang(e) {
     wx.showModal({
@@ -54,7 +55,7 @@ Page({
             that.setData({ 'userid': res.data })
             if (itemnow.isRemarkOne == 4) {
               wx.request({
-                url: 'https://xcx.fjdayixin.cn:51608/api/1/get/record',
+                url: that.baseurl+'/api/1/get/record',
                 data: {
                   type: 1,
                   taskId: itemnow.id
@@ -76,7 +77,7 @@ Page({
             }
             if (itemnow.isRemarkOne == 3) {
               wx.request({
-                url: 'https://xcx.fjdayixin.cn:51608/api/1/list/urls',
+                url: that.baseurl+'/api/1/list/urls',
                 data: {
                   type: 1,
                   taskId: itemnow.id
@@ -126,7 +127,7 @@ Page({
       if (that.data.addgpsnum == 0) {
         that.setData({ addgpsnum: 1 })
         wx.request({
-          url: 'https://xcx.fjdayixin.cn:51608/api/1/check/1',
+          url: that.baseurl+'/api/1/check/1',
           data: {
             userId: that.data.userid,
             taskId: that.data.car.id
@@ -153,7 +154,7 @@ Page({
             })
             for (let i = 0; i < picture.length; i++) {
               wx.uploadFile({
-                url: 'https://xcx.fjdayixin.cn:51608/api/1/upload',
+                url: that.baseurl+'/api/1/upload',
                 filePath: picture[i].tempFilePath,
                 name: 'file',
                 formData: {
@@ -207,7 +208,7 @@ Page({
               let gpspic = res.tempFiles
               console.log(gpspic, '图片链接');
               wx.request({
-                url: 'https://xcx.fjdayixin.cn:51608/api/1/check/2',
+                url: that.baseurl+'/api/1/check/2',
                 data: {
                   userId: that.data.userid,
                   taskId: that.data.car.id
@@ -223,7 +224,7 @@ Page({
                   that.setData({ ['car.isRemarkTwo']: 3 })
                   for (let i = 0; i < gpspic.length; i++) {
                     wx.uploadFile({
-                      url: 'https://xcx.fjdayixin.cn:51608/api/1/upload',
+                      url: that.baseurl+'/api/1/upload',
                       filePath: gpspic[i].tempFilePath,
                       name: 'file',
                       formData: {
@@ -284,17 +285,17 @@ Page({
     let that = this
     var timestamp = Date.parse(new Date());
     var date = new Date(timestamp);
-    //获取年份  
+    //获取年份
     var Y = date.getFullYear();
-    //获取月份  
+    //获取月份
     var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1);
-    //获取当日日期 
+    //获取当日日期
     var D = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
     console.log("当前时间：" + Y + '年' + M + '月' + D + '日');
     let datanow = Y + '-' + M + '-' + D
     console.log(that.data.fillingreason);
     wx.request({
-      url: 'https://xcx.fjdayixin.cn:51608/api/1/update/filling',
+      url: that.baseurl+'/api/1/update/filling',
       data: {
         id: that.data.car.id,
         fillingPerson: that.data.nickname,

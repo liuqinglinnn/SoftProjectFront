@@ -7,6 +7,7 @@ Page({
     picture: [{}],//审核12图片
     material: [{}],
     statustotal:0,
+    baseurl:"http://81.68.194.42:9090"
   },
   onLoad: function (options) {
     wx.setVisualEffectOnCapture({
@@ -21,7 +22,7 @@ Page({
         console.log(res)
       }
     })
-    
+
     let itemnow = JSON.parse(options.itemnow)
     let that = this
     this.setData({ car: itemnow })
@@ -30,7 +31,7 @@ Page({
       success: (res) => {
         that.setData({ 'token': res.data })
         wx.request({
-          url: 'https://xcx.fjdayixin.cn:51608/api/1/list/urls',
+          url: that.baseurl+'/api/1/list/urls',
           data: {
             "type": 1,
             "taskId": that.data.car.id
@@ -49,7 +50,7 @@ Page({
           complete: () => { }
         });
         wx.request({
-          url: 'https://xcx.fjdayixin.cn:51608/api/1/list/urls',
+          url: that.baseurl+'/api/1/list/urls',
           data: {
             "type": 5,
             "taskId": that.data.car.id
@@ -95,7 +96,7 @@ Page({
       complete: function (res) { },
     })
   },
-  
+
   playaudio(e) {
     let that = this
     let src = e.currentTarget.dataset.src
@@ -136,7 +137,7 @@ Page({
         for (let j = 0; j < musicarr.length; j++) {
           let numnow = j + 1
           wx.uploadFile({
-            url: 'https://xcx.fjdayixin.cn:51608/api/1/upload',
+            url: that.baseurl+'/api/1/upload',
             filePath: musicarr[j].path,
             name: 'file',
             formData: {
@@ -150,7 +151,7 @@ Page({
             success(res) {
               console.log(res);
               wx.request({
-                url: 'https://xcx.fjdayixin.cn:51608/api/1/list/urls',
+                url: that.baseurl+'/api/1/list/urls',
                 data: {
                   "type": 5,
                   "taskId": that.data.car.id

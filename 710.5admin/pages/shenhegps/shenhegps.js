@@ -9,6 +9,7 @@ Page({
     refusereason: "",//驳回原因
     remarkpop: false,
     remarkvalue: "",
+    baseurl:"http://81.68.194.42:9090"
   },
   // zhaopiantanchuang(e) {
   //   wx.showModal({
@@ -46,7 +47,7 @@ Page({
             that.setData({ 'id': res.data })
             let id = res.data
             wx.request({
-              url: 'https://xcx.fjdayixin.cn:51608/api/1/list/urls',
+              url: that.baseurl+'/api/1/list/urls',
               data: {
                 "type": 1,
                 "taskId": itemnow.id
@@ -65,7 +66,7 @@ Page({
               complete: () => { }
             });
             wx.request({
-              url: 'https://xcx.fjdayixin.cn:51608/api/1/list/urls',
+              url: that.baseurl+'/api/1/list/urls',
               data: {
                 "type": 2,
                 "taskId": itemnow.id
@@ -104,7 +105,7 @@ Page({
     let that = this
     if (that.data.picture2.length != 0) {
       wx.request({
-        url: 'https://xcx.fjdayixin.cn:51608/api/1/pass',
+        url: that.baseurl+'/api/1/pass',
         data: {
           "taskId": that.data.car.id,
           "type": 2,
@@ -138,7 +139,7 @@ Page({
     }
     else {
       wx.request({
-        url: 'https://xcx.fjdayixin.cn:51608/api/1/pass',
+        url: that.baseurl+'/api/1/pass',
         data: {
           "taskId": that.data.car.id,
           "type": 1,
@@ -181,7 +182,7 @@ Page({
   bohuitongguo(e) {
     let that = this
     wx.request({
-      url: 'https://xcx.fjdayixin.cn:51608/api/1/check/reject',
+      url: that.baseurl+'/api/1/check/reject',
       data: {
         "taskId": that.data.car.id,
         "type": 2,
@@ -246,7 +247,7 @@ Page({
   remarkconfirm() {
     let that = this
     wx.request({
-      url: 'https://xcx.fjdayixin.cn:51608/api/1/change/text',
+      url: that.baseurl+'/api/1/change/text',
       data: {
         "taskId": that.data.car.id,
         'name': that.data.remarkvalue

@@ -6,7 +6,8 @@ Page({
         "userid": "",
         "nickname": "登录",
         "userpicture": "/icon/admin.png",
-        "level": 0
+        "level": 0,
+        baseurl:"http://81.68.194.42:9090"
     },
     onShow(options) {
         let that = this
@@ -22,7 +23,7 @@ Page({
                 console.log(res)
             }
         })
-        
+
         wx.getStorage({
             key: 'id',
             success: (res) => {

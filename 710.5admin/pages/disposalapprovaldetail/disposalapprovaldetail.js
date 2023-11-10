@@ -5,7 +5,8 @@ Page({
     token: "",
     chuzhiarr: [],//处置记录
     refusepop: false,//驳回弹窗开关
-    refusereason: ""//驳回原因
+    refusereason: "",//驳回原因
+    baseurl:"http://81.68.194.42:9090"
   },
   onLoad: function (options) {
     let itemnow = JSON.parse(options.itemnow)
@@ -35,7 +36,7 @@ Page({
             that.setData({ 'token': res.data })
             let token = res.data
             wx.request({
-              url: 'https://xcx.fjdayixin.cn:51608/api/1/get/manage/detail/' + itemnow.id,
+              url: that.baseurl+'/api/1/get/manage/detail/' + itemnow.id,
               header: {
                 'content-type': 'application/json',
                 'token': token
@@ -50,7 +51,7 @@ Page({
                   console.log(chuzhiarr[i].type, '当前处置的type');
                   if (chuzhiarr[i].type != 5) {
                     wx.request({
-                      url: 'https://xcx.fjdayixin.cn:51608/api/1/list/urls',
+                      url: that.baseurl+'/api/1/list/urls',
                       data: {
                         "type": 3,
                         "taskId": itemnow.id
@@ -71,7 +72,7 @@ Page({
                   }
                   if (chuzhiarr[i].type == 5) {
                     wx.request({
-                      url: 'https://xcx.fjdayixin.cn:51608/api/1/list/urls',
+                      url: that.baseurl+'/api/1/list/urls',
                       data: {
                         "type": 4,
                         "taskId": itemnow.id
@@ -126,7 +127,7 @@ Page({
     console.log(that.data.chuzhiarr[index].type, '通过type');
     if (that.data.chuzhiarr[index].type != 5) {
       wx.request({
-        url: 'https://xcx.fjdayixin.cn:51608/api/1/pass',
+        url: that.baseurl+'/api/1/pass',
         data: {
           "taskId": that.data.car.id,
           "type": 3,
@@ -158,7 +159,7 @@ Page({
     }
     if (that.data.chuzhiarr[index].type == 5) {
       wx.request({
-        url: 'https://xcx.fjdayixin.cn:51608/api/1/pass',
+        url: that.baseurl+'/api/1/pass',
         data: {
           "taskId": that.data.car.id,
           "type": 4,
@@ -174,7 +175,7 @@ Page({
           console.log(res);
           //队伍分配变成空
           wx.request({
-            url: 'https://xcx.fjdayixin.cn:51608/api/1/change/group',
+            url: that.baseurl+'/api/1/change/group',
             data: {
               "taskId": that.data.car.id,
               "name": ""
@@ -218,7 +219,7 @@ Page({
   bohuitongguo(e) {
     let that = this
     wx.request({
-      url: 'https://xcx.fjdayixin.cn:51608/api/1/check/reject',
+      url: that.baseurl+'/api/1/check/reject',
       data: {
         "taskId": that.data.car.id,
         "type": 3,

@@ -3,7 +3,8 @@ Page({
     car: "",//当前车辆情况
     picture: [],//活动图片
     token: "",
-    chuzhiarr: []//处置记录
+    chuzhiarr: [],//处置记录
+    baseurl:"http://81.68.194.42:9090"
   },
   onLoad: function (options) {
     wx.setVisualEffectOnCapture({
@@ -18,7 +19,7 @@ Page({
         console.log(res)
       }
     })
-    
+
     let itemnow = JSON.parse(options.itemnow)
     let that = this
     this.setData({ car: itemnow })
@@ -28,7 +29,7 @@ Page({
         that.setData({ 'token': res.data })
         let token = res.data
         wx.request({
-          url: 'https://xcx.fjdayixin.cn:51608/api/1/get/manage/detail/' + itemnow.id,
+          url: that.baseurl+'/api/1/get/manage/detail/' + itemnow.id,
           header: {
             'content-type': 'application/json',
             'token': token
@@ -42,7 +43,7 @@ Page({
             for (let i = 0; i < chuzhiarr.length; i++) {
               if (chuzhiarr[i].type != 5) {
                 wx.request({
-                  url: 'https://xcx.fjdayixin.cn:51608/api/1/list/urls',
+                  url: that.baseurl+'/api/1/list/urls',
                   data: {
                     "type": 3,
                     "taskId": itemnow.id
@@ -63,7 +64,7 @@ Page({
               }
               if (chuzhiarr[i].type == 5) {
                 wx.request({
-                  url: 'https://xcx.fjdayixin.cn:51608/api/1/list/urls/1',
+                  url: that.baseurl+'/api/1/list/urls/1',
                   data: {
                     "type": 4,
                     "taskId": itemnow.id,

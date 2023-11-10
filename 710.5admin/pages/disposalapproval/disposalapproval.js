@@ -20,6 +20,7 @@ Page({
     orderByPriceType: 0,
     //orderByTime: 0,
     // orderByTimeType: 0,
+    baseurl:"http://81.68.194.42:9090"
   },
   onShow() {
     let that = this
@@ -44,7 +45,7 @@ Page({
         console.log(res)
       }
     })
-    
+
     //进入首页看有无token
     wx.getStorage({
       key: 'token',
@@ -57,7 +58,7 @@ Page({
             that.setData({ 'id': res.data })
             let id = res.data
             wx.request({
-              url: 'https://xcx.fjdayixin.cn:51608/api/1/list/page/3',
+              url: that.baseurl+'/api/1/list/page/3',
               data: {
                 "size": 10, //分页参数
                 "page": 1, //分页参数
@@ -117,7 +118,7 @@ Page({
       manageWay = ''
     }
     wx.request({
-      url: 'https://xcx.fjdayixin.cn:51608/api/1/list/page/3',
+      url: that.baseurl+'/api/1/list/page/3',
       data: {
         "size": 10, //分页参数
         "page": 1, //分页参数
@@ -158,7 +159,7 @@ Page({
       manageWay = ''
     }
     wx.request({
-      url: 'https://xcx.fjdayixin.cn:51608/api/1/list/page/3',
+      url: that.baseurl+'/api/1/list/page/3',
       data: {
         "size": 10, //分页参数
         "page": 1, //分页参数
@@ -196,7 +197,7 @@ Page({
       manageWay = ''
     }
     wx.request({
-      url: 'https://xcx.fjdayixin.cn:51608/api/1/list/page/3',
+      url: that.baseurl+'/api/1/list/page/3',
       data: {
         "size": 10, //分页参数
         "page": 1, //分页参数
@@ -236,7 +237,7 @@ Page({
       manageWay = ''
     }
     wx.request({
-      url: 'https://xcx.fjdayixin.cn:51608/api/1/list/page/3',
+      url: that.baseurl+'/api/1/list/page/3',
       data: {
         "size": 10, //分页参数
         "page": page + 1, //分页参数
@@ -289,7 +290,7 @@ Page({
               manageWay = ''
             }
             wx.request({
-              url: 'https://xcx.fjdayixin.cn:51608/api/1/list/page/3',
+              url: that.baseurl+'/api/1/list/page/3',
               data: {
                 "size": 10, //分页参数
                 "page": 1, //分页参数
@@ -317,7 +318,7 @@ Page({
             //获取待审核数量
             //let num = that.data.currentTab + 1
             // wx.request({
-            //   url: 'https://xcx.fjdayixin.cn:51608/api/1/check/num/' + num,
+            //   url: that.baseurl+'/api/1/check/num/' + num,
             //   header: {
             //     'content-type': 'application/json',
             //     'token': token
@@ -366,7 +367,7 @@ Page({
       manageWay = ''
     }
     wx.request({
-      url: 'https://xcx.fjdayixin.cn:51608/api/1/list/page/3',
+      url: that.baseurl+'/api/1/list/page/3',
       data: {
         "size": 10, //分页参数
         "page": 1, //分页参数
@@ -412,7 +413,7 @@ Page({
   //     manageWay = ''
   //   }
   //   wx.request({
-  //     url: 'https://xcx.fjdayixin.cn:51608/api/1/list/page/2',
+  //     url: that.baseurl+'/api/1/list/page/2',
   //     data: {
   //       "size": 10, //分页参数
   //       "page": 1, //分页参数
@@ -487,7 +488,7 @@ Page({
                 that.setData({ 'id': res.data })
                 let id = res.data
                 wx.request({
-                  url: 'https://xcx.fjdayixin.cn:51608/api/1/list/page/3',
+                  url: that.baseurl+'/api/1/list/page/3',
                   data: {
                     "size": 10, //分页参数
                     "page": 1, //分页参数

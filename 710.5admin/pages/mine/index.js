@@ -11,6 +11,7 @@ Page({
         "projectlist": ["民生", "人保", "正印", "伍捌", "泰隆", "通用","中睿汇鑫存量资产", "其他"],
         "projectlistindex": 0,
         "projectlistpop": false,
+        baseurl:"http://81.68.194.42:9090"
     },
     onShow(options) {
         let that = this
@@ -47,7 +48,7 @@ Page({
                                     success: (res) => {
                                         that.setData({ 'level': res.data })
                                         wx.request({
-                                            url: 'https://xcx.fjdayixin.cn:51608/api/1/list/page/3',
+                                            url: that.baseurl+'/api/1/list/page/3',
                                             data: {
                                                 "size": 1000, //分页参数
                                                 "page": 1, //分页参数
@@ -173,12 +174,12 @@ Page({
                 console.log(tempFilePaths);
                 for (let i = 0; i < tempFilePaths.length; i++) {
                     wx.uploadFile({
-                        url: 'https://xcx.fjdayixin.cn:51608/excel/upload',
+                        url: that.baseurl+'/excel/upload',
                         filePath: tempFilePaths[i].path,
                         name: 'file',
                         header: {
                             'content-type': 'application/x-www-form-urlencoded;charse=UTF-8',
-                            
+
                         },
                         formData: {
                             token: that.data.token
@@ -204,13 +205,13 @@ Page({
                                         content:datas,
                                         showCancel:false,
                                         success: (res) => {
-                                      
+
                                         },
                                         fail: (err) => {
-                                
+
                                         }
                                       })
-                                      
+
                                 }
                                 else {
                                     wx.showToast({
@@ -236,7 +237,7 @@ Page({
                 console.log(tempFilePaths);
                 for (let i = 0; i < tempFilePaths.length; i++) {
                     wx.uploadFile({
-                        url: 'https://xcx.fjdayixin.cn:51608/excel/upload/new',
+                        url: that.baseurl+'/excel/upload/new',
                         filePath: tempFilePaths[i].path,
                         name: 'file',
                         header: {
@@ -287,7 +288,7 @@ Page({
         let that = this
         console.log(that.data.projectlist[that.data.projectlistindex]);
         wx.request({
-            url: 'https://xcx.fjdayixin.cn:51608/api/1/delete/projects?name='+that.data.projectlist[that.data.projectlistindex],
+            url: that.baseurl+'/api/1/delete/projects?name='+that.data.projectlist[that.data.projectlistindex],
             header: {
                 'content-type': 'application/json',
                 'token': that.data.token

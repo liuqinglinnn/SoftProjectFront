@@ -26,6 +26,7 @@ Page({
     protectText: "",
     protectMind: "不详",
     protectWay: "",
+    baseurl:"http://81.68.194.42:9090"
   },
   onLoad(options) {
     let itemnow = JSON.parse(options.itemnow)
@@ -43,20 +44,20 @@ Page({
     })
 
     let that = this
-    
+
     var timestamp = Date.parse(new Date());
     var date = new Date(timestamp);
-    //获取年份  
+    //获取年份
     var Y =date.getFullYear();
-    //获取月份  
+    //获取月份
     var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1);
-    //获取当日日期 
-    var D = date.getDate() < 10 ? '0' + date.getDate() : date.getDate(); 
+    //获取当日日期
+    var D = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
     console.log("当前时间：" + Y + '年'  + M+ '月' + D+ '日' );
     let datanow=  Y + '-'  + M+ '-' + D
 
     this.setData({ car: itemnow,protectTime:datanow,huishoudate:datanow })
-  
+
     if (itemnow.actualUser == "车主本人") {
       this.setData({ usepeopleindex: 0 })
     }
@@ -181,7 +182,7 @@ Page({
         content: '请填写保全经过',
         success: function (res) { }
       })
-    }    
+    }
     else if (that.data.protectMind == "") {
       wx.showModal({
         title: '入库失败',
@@ -202,7 +203,7 @@ Page({
       if (that.data.enterhousenum == 0) {
         that.setData({ enterhousenum: 1 })
         wx.request({
-          url: 'https://xcx.fjdayixin.cn:51608/api/1/inbox',
+          url: that.baseurl+'/api/1/inbox',
           data: {
             actualUser: that.data.usepeople[that.data.usepeopleindex],
             carConditionDes: that.data.chekuangmiaoshu,

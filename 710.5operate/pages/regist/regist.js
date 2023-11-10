@@ -7,6 +7,7 @@ Page({
     belongGroup: "",//队伍
     idCard: "",//身份证
     "open": false,//默认不显示密码
+    baseurl:"http://81.68.194.42:9090"
   },
   onLoad(options) {
 
@@ -28,7 +29,7 @@ Page({
     })
     if (that.data.nickname != '' && that.data.password != '' && that.data.phone != '') {
       wx.request({
-        url: 'https://xcx.fjdayixin.cn:51608/user/register',
+        url: that.baseurl+'/user/register',
         data: {
           username: that.data.phone,//手机号
           password: that.data.password,//密码
