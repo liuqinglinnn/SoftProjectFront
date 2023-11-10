@@ -10,6 +10,7 @@ Page({
     addprouppop: false,
     addproupname: "",
     inputvalue: "",
+    baseurl:"http://81.68.194.42:9090"
   },
   //options(Object)
   onLoad: function (options) {
@@ -48,7 +49,7 @@ Page({
                     that.setData({ 'nickname': res.data })
                     let nickname = res.data
                     wx.request({
-                      url: 'https://xcx.fjdayixin.cn:51608/api/1/get/users',
+                      url: that.baseurl+'/api/1/get/users',
                       data: {
                         "level": level + 1,
                         "group": ""
@@ -68,7 +69,7 @@ Page({
                     });
                     let num = level + 1
                     wx.request({
-                      url: 'https://xcx.fjdayixin.cn:51608/api/1/get/groups/' + num,
+                      url: that.baseurl+'/api/1/get/groups/' + num,
                       header: {
                         'content-type': 'application/json',
                         'token': token
@@ -107,7 +108,7 @@ Page({
       success: function (res) {
         if (res.confirm) {
           wx.request({
-            url: 'https://xcx.fjdayixin.cn:51608/api/1/remove/user/' + id,
+            url: that.baseurl+'/api/1/remove/user/' + id,
             header: {
               'content-type': 'application/json',
               'token': that.data.token
@@ -148,7 +149,7 @@ Page({
       success: function (res) {
         if (res.confirm) {
           wx.request({
-            url: 'https://xcx.fjdayixin.cn:51608/api/1/remove/group/' + id,
+            url: that.baseurl+'/api/1/remove/group/' + id,
             header: {
               'content-type': 'application/json',
               'token': that.data.token
@@ -179,7 +180,7 @@ Page({
     let that = this
     let id = that.data.id
     wx.request({
-      url: 'https://xcx.fjdayixin.cn:51608/api/1/create/code/' + id,
+      url: that.baseurl+'/api/1/create/code/' + id,
       header: {
         'content-type': 'application/json',
         'token': that.data.token
@@ -225,7 +226,7 @@ Page({
   addproupconfirm(e) {
     let that = this
     wx.request({
-      url: 'https://xcx.fjdayixin.cn:51608/api/1/create/group',
+      url: that.baseurl+'/api/1/create/group',
       data: {
         name: that.data.addproupname,
         userId: that.data.id,
@@ -279,7 +280,7 @@ Page({
                     that.setData({ 'nickname': res.data })
                     let nickname = res.data
                     wx.request({
-                      url: 'https://xcx.fjdayixin.cn:51608/api/1/get/users',
+                      url: that.baseurl+'/api/1/get/users',
                       data: {
                         "level": level + 1,
                         "group": ""
@@ -299,7 +300,7 @@ Page({
                     });
                     let num = level + 1
                     wx.request({
-                      url: 'https://xcx.fjdayixin.cn:51608/api/1/get/groups/' + num,
+                      url: that.baseurl+'/api/1/get/groups/' + num,
                       header: {
                         'content-type': 'application/json',
                         'token': token
@@ -352,7 +353,7 @@ Page({
                     that.setData({ 'nickname': res.data })
                     let nickname = res.data
                     wx.request({
-                      url: 'https://xcx.fjdayixin.cn:51608/api/1/get/users',
+                      url: that.baseurl+'/api/1/get/users',
                       data: {
                         "level": level + 1,
                         "group": "",
@@ -373,7 +374,7 @@ Page({
                     });
                     let num = level + 1
                     wx.request({
-                      url: 'https://xcx.fjdayixin.cn:51608/api/1/get/groups/' + num,
+                      url: that.baseurl+'/api/1/get/groups/' + num,
                       header: {
                         'content-type': 'application/json',
                         'token': token
@@ -406,7 +407,7 @@ Page({
   search(e) {
     let that = this
     wx.request({
-      url: 'https://xcx.fjdayixin.cn:51608/api/1/get/users',
+      url: that.baseurl+'/api/1/get/users',
       data: {
         "level": that.data.level + 1,
         "keyWord": that.data.inputvalue,
@@ -428,7 +429,7 @@ Page({
   cancelsearch(e) {
     let that = this
     wx.request({
-      url: 'https://xcx.fjdayixin.cn:51608/api/1/get/users',
+      url: that.baseurl+'/api/1/get/users',
       data: {
         "level": that.data.level + 1,
       },

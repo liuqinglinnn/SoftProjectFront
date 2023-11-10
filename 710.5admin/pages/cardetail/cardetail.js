@@ -1,11 +1,10 @@
-var WxParse = require('../../utils/wxParse/wxParse.js');
 Page({
   data: {
     car: "",
     picture: [{}],
     material: [{}],
-    xiugaipop: false,
-    xiugaiinput: "",
+    updatepop: false,
+    updateinput: "",
     token: "",
     downloadpop: false,
     downloadurl: "",
@@ -16,6 +15,7 @@ Page({
     statustotal3: 0,
     textpop: false,
     textcontent: "",
+    baseurl:"http://81.68.194.42:9090"
   },
   onLoad: function (options) {
     let itemnow = JSON.parse(options.itemnow)
@@ -41,7 +41,7 @@ Page({
         that.setData({ 'token': res.data })
         let token = res.data
         wx.request({
-          url: 'https://xcx.fjdayixin.cn:51608/api/1/list/urls',
+          url: that.baseurl+'/api/1/list/urls',
           data: {
             "type": 1,
             "taskId": that.data.car.id
@@ -60,7 +60,7 @@ Page({
           complete: () => { }
         });
         wx.request({
-          url: 'https://xcx.fjdayixin.cn:51608/api/1/get/car/' + itemnow.id,
+          url: that.baseurl+'/api/1/get/car/' + itemnow.id,
           header: {
             'content-type': 'application/json',
             'token': res.data
@@ -106,7 +106,7 @@ Page({
         });
 
         wx.request({
-          url: 'https://xcx.fjdayixin.cn:51608/api/1/list/urls',
+          url: that.baseurl+'/api/1/list/urls',
           data: {
             "type": 5,
             "taskId": that.data.car.id
@@ -126,7 +126,7 @@ Page({
         });
         if (itemnow.isRemarkThree == 4) {
           wx.request({
-            url: 'https://xcx.fjdayixin.cn:51608/api/1/get/record',
+            url: that.baseurl+'/api/1/get/record',
             data: {
               type: 1,
               taskId: itemnow.id
@@ -208,18 +208,18 @@ Page({
       success: (result) => { },
     })
 
-    // this.setData({ xiugaipop: !this.data.xiugaipop })
+    // this.setData({ updatepop: !this.data.updatepop })
   },
   xiugaiquxiao(e) {
-    this.setData({ xiugaipop: !this.data.xiugaipop })
+    this.setData({ updatepop: !this.data.updatepop })
   },
   xiugaitongguo(e) {
     let that = this
     wx.request({
-      url: 'https://xcx.fjdayixin.cn:51608/api/1/change',
+      url: that.baseurl+'/api/1/change',
       data: {
         "taskId": that.data.car.id,
-        'sentGarage': that.data.xiugaiinput
+        'sentGarage': that.data.updateinput
       },
       header: {
         'content-type': 'application/json',
@@ -233,20 +233,20 @@ Page({
           title: '挪库成功',
           showCancel: false,
           content: '',
-          success: function (res) { that.setData({ xiugaipop: !that.data.xiugaipop, ['car.sentGarage']: that.data.xiugaiinput }) }
+          success: function (res) { that.setData({ updatepop: !that.data.updatepop, ['car.sentGarage']: that.data.updateinput }) }
         })
       },
       fail: (err) => { console.log(err); },
       complete: () => { }
     });
   },
-  xiugaiinput(e) {
-    this.setData({ 'xiugaiinput': e.detail.value })
+  updateinput(e) {
+    this.setData({ 'updateinput': e.detail.value })
   },
   chuzhiwancheng(e) {
     let that = this
     wx.request({
-      url: 'https://xcx.fjdayixin.cn:51608/api/1/get/car/' + that.data.car.id,
+      url: that.baseurl+'/api/1/get/car/' + that.data.car.id,
       header: {
         'content-type': 'application/json',
         'token': that.data.token
@@ -309,7 +309,7 @@ Page({
   remarkconfirm() {
     let that = this
     wx.request({
-      url: 'https://xcx.fjdayixin.cn:51608/api/1/change/text',
+      url: that.baseurl+'/api/1/change/text',
       data: {
         "taskId": that.data.car.id,
         'name': that.data.remarkvalue
@@ -350,7 +350,7 @@ Page({
         for (let j = 0; j < musicarr.length; j++) {
           let numnow = j + 1
           wx.uploadFile({
-            url: 'https://xcx.fjdayixin.cn:51608/api/1/upload',
+            url: that.baseurl+'/api/1/upload',
             filePath: musicarr[j].path,
             name: 'file',
             formData: {
@@ -365,7 +365,7 @@ Page({
               console.log(res);
               if (j == musicarr.length-1) {
                 wx.request({
-                  url: 'https://xcx.fjdayixin.cn:51608/api/1/list/urls',
+                  url: that.baseurl+'/api/1/list/urls',
                   data: {
                     "type": 5,
                     "taskId": that.data.car.id
@@ -456,7 +456,7 @@ Page({
         if (res.confirm) {
           console.log('点击确定了');
           wx.request({
-            url: 'https://xcx.fjdayixin.cn:51608/api/1/remove/material/' + material[index].id,
+            url: that.baseurl+'/api/1/remove/material/' + material[index].id,
             header: {
               'content-type': 'application/json',
               'token': that.data.token
