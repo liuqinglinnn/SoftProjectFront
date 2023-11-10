@@ -6,8 +6,8 @@ Page({
     theOtherName: "",
     company: "",
     phone: "",
-    huishoudate: "2020-01-01",
-    huishoutime: "00:00",
+    recoverydate: "2020-01-01",
+    recoverytime: "00:00",
     registerName: "",
     certificateLocation: "",
     plate: "",
@@ -16,6 +16,7 @@ Page({
     car: "",
     token: "",
     id: "",
+    baseurl:"http://81.68.194.42:9090"
   },
   onLoad: function (options) {
     let itemnow = JSON.parse(options.itemnow)
@@ -133,7 +134,7 @@ Page({
 
     else {
       wx.request({
-        url: 'https://xcx.fjdayixin.cn:51608/api/1/manage',
+        url: this.baseurl+'/api/1/manage',
         data: {
           "taskId": that.data.car.id,
           "userId": that.data.id,
@@ -159,7 +160,7 @@ Page({
           let pic = that.data.picture
           for (let i = 0; i < pic.length; i++) {
             wx.uploadFile({
-              url: 'https://xcx.fjdayixin.cn:51608/api/1/upload',
+              url: this.baseurl+'/api/1/upload',
               filePath: pic[i].tempFilePath,
               name: 'file',
               formData: {
@@ -175,7 +176,6 @@ Page({
               }
             })
           }
-
           wx.showModal({
             title: '处置申请成功',
             showCancel: false,
@@ -196,11 +196,6 @@ Page({
         complete: () => { }
       });
     }
-
-
-
-
-
   },
   clickImg(e) {
     console.log(e);
