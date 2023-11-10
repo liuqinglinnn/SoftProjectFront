@@ -28,7 +28,7 @@ Page({
           success: (res) => {
             let token = res.data
             wx.request({
-        url: 'https://localhost:8080/api/1/get/user/' + id,
+        url: 'http://81.68.194.42:9090/user/login/' + id,
               header: {
                 'content-type': 'application/json',
                 'token': token
@@ -66,7 +66,7 @@ Page({
   slogin(e) {
     let that = this
     wx.request({
-      url: 'https://localhost:8080/user/login',
+      url: 'http://81.68.194.42:9090/user/login',
       data: {
         "username": that.data.username,
         "password": that.data.password

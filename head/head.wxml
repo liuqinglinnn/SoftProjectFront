@@ -1,10 +1,8 @@
 <image
-  class=""
-  style="background: linear-gradient(#00BFFF 50%, #F0FFFF 90%)"
-  src="../../icon/710A.png"
+  src="../../icon/710.png"
   mode="aspectFit"
+  style="width: 100%;"
 >
-
 </image>
 <view class="body">
   <view class="login_one">
@@ -13,7 +11,7 @@
     </view>
     <view class="login_one_">
       <input
-        class="login_one_input"
+        class="input1"
         value="{{username}}"
         type="text"
         placeholder="请输入手机号"
@@ -30,7 +28,7 @@
     </view>
     <view class="login_one_">
       <input
-        class="login_one_input"
+        class="input2"
         value="{{password}}"
         password="{{!open}}"
         type="text"
@@ -49,16 +47,12 @@
   </view>
 </view>
 <view class="bottom">
-  <view class="denglu" bindtap="slogin">
+  <button class="denglu" bindtap="slogin">
     登录
-  </view>
-  <view
-    class="denglu"
-    bindtap="regist"
-    style=" background-color   : rgb(108, 153, 190);  border          : 5rpx solid rgb(108, 153, 190);"
-  >
-    注册
-  </view>
+  </button>
+</view >
+<view class="zuche" bindtap="regist">
+没有账号 ? 注册
 </view>
 <!-- 
 <view class="bottom">
