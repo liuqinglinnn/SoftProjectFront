@@ -23,7 +23,7 @@
       <input
         class="login_one_input"
         value="{{phone}}"
-        type="number"
+        type="text"
         placeholder="请输入手机号"
         maxlength="20"
         bindinput="sphone"
@@ -62,7 +62,7 @@
         class="login_one_input"
         value="{{sscode}}"
         type="number"
-        placeholder="请输入公司邀请码"
+        placeholder="请输入邀请码"
         maxlength="20"
         bindinput="ssscode"
       >
@@ -79,7 +79,7 @@
         value="{{belongGroup}}"
         type="text"
         placeholder="请输入账号所属队伍"
-        maxlength="20"
+        maxlength="10"
         bindinput="sbelongGroup"
       >
       </input>
@@ -98,7 +98,7 @@
     1注册前请阅读《用户服务协议》及《隐私政策》
   </view>
   <view class="">
-    2注册信息用于公司内部核实员工身份
+    2注册信息用于核实成员身份
   </view>
 </view>
 

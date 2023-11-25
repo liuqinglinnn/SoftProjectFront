@@ -7,7 +7,6 @@ Page({
     belongGroup: "",//队伍
     idCard: "",//身份证
     "open": false,//默认不显示密码
-    baseurl:"http://81.68.194.42:9090"
   },
   onLoad(options) {
 
@@ -28,71 +27,41 @@ Page({
       }
     })
     if (that.data.nickname != '' && that.data.password != '' && that.data.phone != '') {
-      wx.login({
-        success: res => {
+      wx.request({
+        url: 'http://81.68.194.42:9090/user/register',
+        data: {
+          username: that.data.phone,//手机号
+          password: that.data.password,//密码
+          nickname: that.data.nickname,//名字
+          code: that.data.sscode,//邀请码
+          belongGroup: that.data.belongGroup,//队伍
+          idCard: that.data.idCard,//身份证
+        },
+        header: {
+          'content-type': 'application/json',
+        },
+        method: 'POST',
+        dataType: 'json',
+        success: (res) => {
           console.log(res);
-          let code = res.code
-          console.log(code);
-          wx.request({
-            url: that.baseurl+'/user/register',
-            data: {
-              username: that.data.phone,//手机号
-              password: that.data.password,//密码
-              nickname: that.data.nickname,//名字
-              code: that.data.sscode,//邀请码
-              belongGroup: that.data.belongGroup,//队伍
-              idCard: that.data.idCard,//身份证
-            },
-            header: {
-              'content-type': 'application/json',
-            },
-            method: 'POST',
-            dataType: 'json',
-            success: (res) => {
-              console.log(res);
-              let mes = res.data.errorMessage
-              let id
-              if(mes == "操作成功")
-              {
-                id=res.data.data.id
+          let mes = res.data.errorMessage
+          wx.showModal({
+            title: mes,
+            showCancel: false,
+            content: '',
+            success: function (res) {
+              if (mes == "操作成功") {
+                wx.navigateBack({
+                  delta: 1
+                })
               }
-              wx.showModal({
-                title: mes,
-                showCancel: false,
-                content: '',
-                success: (res) => {
-                  if (mes == "操作成功") {
+            }
+          })
+        },
+        fail: (err) => { console.log(err); },
+        complete: () => { }
+      });
 
-                    wx.request({
-                      url: that.baseurl+'/api/1/save/open/id',
-                      data: {
-                        "userId": id,
-                        'code': code
-                      },
-                      header: {
-                        'content-type': 'application/json',
-                      },
-                      method: 'POST',
-                      dataType: 'json',
-                      success: (res) => {
-                        console.log(res);
-                        wx.navigateBack({
-                          delta: 1
-                        })
-                      },
-                      fail: (err) => { console.log(err); },
-                      complete: () => { }
-                    });
-
-                  }
-                }
-              })
-            },
-            fail: (err) => { console.log(err); },
-            complete: () => { }
-          });
-        }
-      })
     }
     else {
       wx.showModal({
@@ -103,7 +72,6 @@ Page({
         }
       })
     }
-
   },
   snickname(e) { this.setData({ nickname: e.detail.value }) },
   spassword(e) { this.setData({ password: e.detail.value }) },
